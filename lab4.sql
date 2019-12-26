@@ -1,0 +1,61 @@
+CREATE DATABASE lab4;
+CREATE TABLE Worker (
+    WORKER_ID SERIAL NOT NULL PRIMARY KEY,
+    FIRST_NAME CHAR(25),
+    LAST_NAME CHAR(25),
+    SALARY INT,
+    JOINING_DATE date,
+    DEPARTMENT CHAR(25)
+                    );
+INSERT INTO Worker(WORKER_ID,FIRST_NAME,LAST_NAME,SALARY,JOINING_DATE,DEPARTMENT)
+ VALUES (default,'Moni','Kerma',100000,'17-02-19','Programmer'),
+  (default,'Monika','Arora',100000,'14-02-20','HR' ) ,
+    (default,'Niharika','Verma',80000, '14-06-11','Admin'),
+    (default,'Vishal','Singhal',300000, '14-02-20', 'HR') ,
+    (default,'Amitabh','Singh',500000,'14-02-20', 'Admin'),
+    (default,'Vivek','Bhati',500000,'14-06-11','Admin'),
+    (default,'Vipul', 'Diwan',200000,'14-06-11', 'Account'),
+    (default,'Satish', 'Kumar',75000, '14-01-20' ,'Account'),
+    (default,'Geetika', 'Chauhan', 90000 ,'14-04-11', 'Admin');
+
+SELECT FIRST_NAME AS worker_name FROM Worker;
+SELECT * FROM Worker
+ORDER BY FIRST_NAME ASC;
+
+SELECT * FROM Worker
+WHERE FIRST_NAME = 'Vipul' or first_name = 'Satish';
+
+SELECT * FROM Worker
+WHERE DEPARTMENT = 'Admin';
+
+SELECT DEPARTMENT, COUNT(DEPARTMENT) FROM Worker
+GROUP BY DEPARTMENT
+ORDER BY COUNT(DEPARTMENT) DESC;
+
+SELECT DEPARTMENT, COUNT(DEPARTMENT) FROM Worker
+GROUP BY DEPARTMENT
+HAVING DEPARTMENT = 'Admin';
+
+select MAX(Salary) from Worker
+WHERE Salary <> (select MAX(Salary) from Worker)
+and DEPARTMENT='Admin';
+
+SELECT DISTINCT DEPARTMENT FROM Worker
+ORDER BY DEPARTMENT DESC;
+
+
+SELECT DISTINCT DEPARTMENT FROM Worker
+ORDER BY DEPARTMENT ASC;
+
+SELECT COUNT(*) AS WORKERS, SUM(SALARY) FROM Worker;
+
+SELECT SUM(SALARY) FROM Worker
+WHERE JOINING_DATE = '14-06-2011';
+
+SELECT DEPARTMENT FROM Worker
+GROUP BY DEPARTMENT
+HAVING COUNT(DEPARTMENT)>2 ;
+
+SELECT COUNT(*), MAX(SALARY),MIN(SALARY) FROM Worker
+GROUP BY JOINING_DATE
+ORDER BY JOINING_DATE ASC;
